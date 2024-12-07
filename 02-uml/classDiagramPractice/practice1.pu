@@ -1,0 +1,12 @@
+@startuml Employee
+
+class Employee {
+  - id: number
+  - name: string
+  - salary: number
+  + work(): void
+  # getSalary(): number
+  # setSalary(salary: number): void
+}
+
+@enduml
