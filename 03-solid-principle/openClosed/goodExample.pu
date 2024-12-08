@@ -1,0 +1,53 @@
+@startuml EmployeeHierarchy
+
+interface IEmployee {
+ + name: string
+ + getBonus(base: number): number
+}
+
+class JuniorEmployee {
+ + name: string
+ + constructor(name: string)
+ + getBonus(base: number): number
+}
+
+class MiddleEmployee {
+ + name: string
+ + constructor(name: string)
+ + getBonus(base: number): number
+}
+
+class SeniorEmployee {
+ + name: string
+ + constructor(name: string)
+ + getBonus(base: number): number
+}
+
+class ExpertEmployee {
+ + name: string
+ + constructor(name: string)
+ + getBonus(base: number): number
+}
+
+JuniorEmployee ..|> IEmployee
+MiddleEmployee ..|> IEmployee
+SeniorEmployee ..|> IEmployee
+ExpertEmployee ..|> IEmployee
+
+note right of JuniorEmployee::getBonus
+ base * 1.1
+end note
+
+note right of MiddleEmployee::getBonus
+ base * 1.5
+end note
+
+note right of SeniorEmployee::getBonus
+ base * 2
+end note
+
+note right of ExpertEmployee::getBonus
+ base * 3
+end note
+
+@enduml
