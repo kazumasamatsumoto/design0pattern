@@ -1,0 +1,10 @@
+@startuml ComponentExample
+
+[Authentication]
+interface "auth" as auth
+[Authentication] -- auth
+
+[UserService]
+[UserService] --> auth
+
+@enduml

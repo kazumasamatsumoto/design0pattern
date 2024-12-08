@@ -1,0 +1,20 @@
+@startuml Functions
+
+rectangle "User Management Functions" {
+  interface "validateUser" {
+    + validateUser(email: string, password: string): boolean
+  }
+  
+  interface "formatUserData" {
+    + formatUserData(userData: Object): string
+  }
+  
+  interface "calculateAge" {
+    + calculateAge(birthDate: Date): number
+  }
+}
+
+validateUser --> formatUserData: uses
+formatUserData --> calculateAge: uses
+
+@enduml

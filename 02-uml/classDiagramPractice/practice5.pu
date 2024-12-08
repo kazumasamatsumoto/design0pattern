@@ -1,0 +1,13 @@
+@startuml SequenceExample
+
+participant "Client" as client
+participant "validateUser" as validate
+participant "processData" as process
+participant "saveData" as save
+
+client -> validate: userData
+validate -> process: validatedData
+process -> save: processedData
+save --> client: result
+
+@enduml

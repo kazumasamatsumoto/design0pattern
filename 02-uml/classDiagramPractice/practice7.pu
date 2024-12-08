@@ -1,0 +1,14 @@
+@startuml SimpleFunctions
+
+class "Functions" << (F,orchid) >> {
+  + {static} validateEmail(email: string): boolean
+  + {static} formatName(first: string, last: string): string
+  + {static} calculateTotal(numbers: number[]): number
+}
+
+note right of Functions
+  <<F>> はFunction（関数）を
+  表すステレオタイプです
+end note
+
+@enduml

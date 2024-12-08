@@ -1,0 +1,13 @@
+@startuml ActivityExample
+
+start
+:validateInput;
+if (isValid?) then (yes)
+  :processData;
+  :saveResult;
+else (no)
+  :handleError;
+endif
+stop
+
+@enduml
