@@ -1,0 +1,32 @@
+@startuml EmployeeBonus
+
+enum Grade {
+ junior
+ middle
+ senior
+}
+
+class Employee {
+ + name: string
+ + grade: Grade
+ + constructor(name: string, grade: Grade)
+}
+
+class BonusCalculator {
+ + base: number
+ + constructor(base: number)
+ + getBonus(employee: Employee): number
+}
+
+Employee --> Grade: uses
+BonusCalculator --> Employee: uses
+
+note right of BonusCalculator::getBonus
+ Bonus calculation rules:
+ junior: base * 1.1
+ middle: base * 1.5
+ senior: base * 2.0
+ others: base * 3.0
+end note
+
+@enduml

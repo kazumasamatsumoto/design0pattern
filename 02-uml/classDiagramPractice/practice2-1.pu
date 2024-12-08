@@ -1,0 +1,15 @@
+@startuml PackageExample
+
+package "UserManagement" {
+  [validateUser]
+  [formatUserData]
+}
+
+package "DataAccess" {
+  [saveData]
+  [getData]
+}
+
+[validateUser] --> [saveData]
+
+@enduml

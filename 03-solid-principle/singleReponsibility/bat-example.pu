@@ -1,0 +1,16 @@
+@startuml Employee
+
+class Employee {
+ + name: string
+ + department: string
+ + calculatePay(): void
+ + reportHours(): void
+ + save(): void
+ - getRegularHours(): void
+}
+
+note right of Employee::getRegularHours
+ 経理部門・人事部門共通のロジック
+end note
+
+@enduml

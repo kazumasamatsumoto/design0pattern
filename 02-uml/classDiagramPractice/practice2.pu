@@ -1,15 +1,26 @@
-@startuml PackageExample
+@startuml ShapeHierarchy
 
-package "UserManagement" {
-  [validateUser]
-  [formatUserData]
+interface Shape {
+  + calcArea(): number
 }
 
-package "DataAccess" {
-  [saveData]
-  [getData]
+class Rectangle {
+  - width: number
+  - height: number
+  + calcArea(): number
 }
 
-[validateUser] --> [saveData]
+class Circle {
+  - radius: number
+  + calcArea(): number
+}
+
+class Client {
+  - shape: Shape
+}
+
+Rectangle --|> Shape : implements
+Circle --|> Shape : implements
+Client --> Shape : has
 
 @enduml

@@ -1,0 +1,35 @@
+@startuml EmployeeSystem
+
+class EmployeeData {
+ + name: string
+ + department: string
+ + constructor(name: string, department: string)
+}
+
+class PayCalculator {
+ - getRegularHours(): void
+ + calculatePay(employeeData: EmployeeData): void
+}
+
+class HourReporter {
+ - getRegularHours(): void
+ + reportHours(employeeData: EmployeeData): void
+}
+
+class EmployeeRepository {
+ + save(): void
+}
+
+PayCalculator --> EmployeeData: uses
+HourReporter --> EmployeeData: uses
+
+note right of PayCalculator::getRegularHours
+ 給与計算用の労働時間計算ロジック
+end note
+
+note right of HourReporter::getRegularHours
+ 労働時間レポート専用の
+ 労働時間計算ロジック
+end note
+
+@enduml
