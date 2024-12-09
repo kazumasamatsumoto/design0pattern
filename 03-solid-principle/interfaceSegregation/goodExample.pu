@@ -1,0 +1,41 @@
+@startuml VehicleInterfaces
+
+interface Vehicle {
+ + name: string
+ + color: string
+}
+
+interface Movable {
+ + start(): void
+ + stop(): void
+}
+
+interface Flyable {
+ + fly(): void
+}
+
+class Airplane {
+ + name: string
+ + color: string
+ + constructor(name: string, color: string)
+ + start(): void
+ + stop(): void
+ + fly(): void
+}
+
+class Car {
+ + name: string
+ + color: string
+ + constructor(name: string, color: string)
+ + start(): void
+ + stop(): void
+}
+
+Airplane ..|> Vehicle : implements
+Airplane ..|> Movable : implements
+Airplane ..|> Flyable : implements
+
+Car ..|> Vehicle : implements
+Car ..|> Movable : implements
+
+@enduml

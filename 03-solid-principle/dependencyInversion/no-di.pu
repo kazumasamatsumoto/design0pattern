@@ -1,0 +1,19 @@
+@startuml BadDependency
+
+class HighLevelModule {
+  - lowLevel: LowLevelModule
+  + doSomething()
+}
+
+class LowLevelModule {
+  + specificOperation()
+}
+
+HighLevelModule --> LowLevelModule : depends on
+
+note bottom of HighLevelModule
+  上位モジュールが下位モジュールに
+  直接依存している
+end note
+
+@enduml

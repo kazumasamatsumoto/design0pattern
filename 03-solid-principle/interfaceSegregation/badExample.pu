@@ -1,0 +1,36 @@
+@startuml VehicleHierarchy
+
+interface Vehicle {
+ + name: string
+ + color: string
+ + start(): void
+ + stop(): void
+ + fly(): void
+}
+
+class Airplane {
+ + name: string
+ + color: string
+ + constructor(name: string, color: string)
+ + start(): void
+ + stop(): void
+ + fly(): void
+}
+
+class Car {
+ + name: string
+ + color: string
+ + constructor(name: string, color: string)
+ + start(): void
+ + stop(): void
+ + fly(): void
+}
+
+note right of Car::fly
+ throws Error("車は空を飛べません")
+end note
+
+Airplane ..|> Vehicle : implements
+Car ..|> Vehicle : implements
+
+@enduml

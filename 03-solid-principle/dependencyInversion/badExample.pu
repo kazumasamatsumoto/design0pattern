@@ -1,0 +1,37 @@
+@startuml UserSystem
+
+class User {
+}
+
+class UserController {
+ - userService: UserService
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+class UserService {
+ - userRepository: UserRdbRepository
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+class UserRdbRepository {
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+UserController --> UserService : uses
+UserService --> UserRdbRepository : uses
+UserController ..> User : uses
+UserService ..> User : uses
+UserRdbRepository ..> User : uses
+
+note right of UserRdbRepository::create
+ RDBにUserを登録
+end note
+
+note right of UserRdbRepository::findById
+ IDからユーザーを検索
+end note
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml GoodDependency
+
+interface ILowLevelOperation {
+  + operation()
+}
+
+class HighLevelModule {
+  - lowLevel: ILowLevelOperation
+  + constructor(low: ILowLevelOperation)
+  + doSomething()
+}
+
+class LowLevelModule {
+  + operation()
+}
+
+HighLevelModule o--> ILowLevelOperation : depends on
+LowLevelModule ..|> ILowLevelOperation : implements
+
+note bottom of HighLevelModule
+  上位モジュールは抽象（インターフェース）に
+  依存している
+end note
+
+@enduml

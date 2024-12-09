@@ -1,0 +1,54 @@
+@startuml UserSystem
+
+class User {
+}
+
+interface IUserService {
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+interface IUserRepository {
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+class UserController {
+ - userService: IUserService
+ + constructor(userService: IUserService)
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+class UserService {
+ - userRepository: IUserRepository
+ + constructor(userRepository: IUserRepository)
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+class UserRdbRepository {
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+class TestRepository {
+ + create(user: User): User
+ + findById(id: string): User
+}
+
+UserController o-> IUserService
+UserService ..|> IUserService
+UserService o-> IUserRepository
+UserRdbRepository ..|> IUserRepository
+TestRepository ..|> IUserRepository
+
+note right of UserRdbRepository::create
+ RDBにUserを登録
+end note
+
+note right of TestRepository::findById
+ Test IDからユーザーを検索
+end note
+
+@enduml
