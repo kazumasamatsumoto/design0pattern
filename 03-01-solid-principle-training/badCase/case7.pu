@@ -1,0 +1,26 @@
+@startuml ImageProcessing
+
+' 悪い例
+class BadImageProcessor {
+    - image: any
+    + process(): void
+    - resize(): void
+    - applyFilter(): void
+    - compress(): void
+    - save(): void
+    - uploadToCloud(): void
+    - updateDatabase(): void
+    - notifyUser(): void
+}
+
+note right of BadImageProcessor
+  単一のクラスが：
+  - 画像リサイズ
+  - フィルター適用
+  - 圧縮処理
+  - 保存処理
+  - アップロード
+  - DB更新
+  - 通知
+  を全て担当している
+end note

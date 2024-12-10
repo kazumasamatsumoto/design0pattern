@@ -1,0 +1,23 @@
+@startuml BadUser
+class User {
+    - id: string
+    - name: string
+    - email: string
+    - password: string
+    + validateEmail(): boolean
+    + validatePassword(): boolean
+    + saveToDatabase(): void
+    + deleteFromDatabase(): void
+    + sendWelcomeEmail(): void
+    + sendPasswordReset(): void
+}
+
+note right of User
+  単一のクラスが：
+  - データ管理
+  - バリデーション
+  - データベース操作
+  - メール送信
+  を全て担当している
+end note
+@enduml

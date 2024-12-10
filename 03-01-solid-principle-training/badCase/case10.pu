@@ -1,0 +1,36 @@
+@startuml BadScheduleManager
+
+class ScheduleManager {
+    - events: Event[]
+    + addEvent(event: Event): void
+    + findEvents(date: Date): Event[]
+    + updateEvent(event: Event): void
+    - hasConflict(event: Event): boolean
+    - saveToDatabase(event: Event): void
+    - notifyParticipants(event: Event): void
+    - setReminder(event: Event): void
+    - syncWithCalendar(event: Event): void
+}
+
+interface Event {
+    + id: string
+    + title: string
+    + startTime: Date
+    + endTime: Date
+    + participants: string[]
+}
+
+ScheduleManager --> "0..*" Event: manages
+
+note right of ScheduleManager
+  単一のクラスが：
+  - イベント管理
+  - 重複チェック
+  - データベース操作
+  - 参加者通知
+  - リマインダー管理
+  - カレンダー同期
+  を全て担当している
+end note
+
+@enduml

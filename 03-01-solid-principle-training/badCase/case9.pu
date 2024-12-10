@@ -1,0 +1,27 @@
+@startuml BadFileConverter
+
+class FileConverter {
+    - sourceFile: string
+    + convertFile(targetFormat: string): void
+    - readFile(): string
+    - validateFormat(format: string): boolean
+    - convert(content: string, format: string): string
+    - saveFile(content: string): void
+    - updateMetadata(): void
+    - logConversion(): void
+    - notifyUser(): void
+}
+
+note right of FileConverter
+  単一のクラスが：
+  - ファイル読み込み
+  - フォーマット検証
+  - 変換処理
+  - ファイル保存
+  - メタデータ更新
+  - ログ記録
+  - ユーザー通知
+  を全て担当している
+end note
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml BadOrder
+class Order {
+    - items: string[]
+    - totalAmount: number
+    - customerEmail: string
+    + processOrder(): void
+    - updateInventory(): void
+    - validateOrder(): boolean
+    - saveToDatabase(): void
+    - sendConfirmationEmail(): void
+}
+
+note right of Order
+  単一のクラスが：
+  - 注文処理
+  - 在庫管理
+  - バリデーション
+  - データベース操作
+  - メール送信
+  を全て担当している
+end note
+@enduml

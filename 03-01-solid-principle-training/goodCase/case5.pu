@@ -1,0 +1,100 @@
+@startuml GoodLibrary
+interface Book {
+    + id: string
+    + title: string
+    + status: string
+}
+
+interface Member {
+    + id: string
+    + name: string
+    + email: string
+}
+
+class BookManager {
+    - repository: BookRepository
+    + addBook(book: Book): void
+    + removeBook(bookId: string): void
+    + getBook(bookId: string): Book
+}
+
+class MemberManager {
+    - repository: MemberRepository
+    - notificationService: NotificationService
+    + addMember(member: Member): void
+    + removeMember(memberId: string): void
+    + getMember(memberId: string): Member
+}
+
+class LendingService {
+    - bookManager: BookManager
+    - memberManager: MemberManager
+    - overdueChecker: OverdueChecker
+    - notificationService: NotificationService
+    + lendBook(bookId: string, memberId: string): void
+}
+
+interface BookRepository {
+    + save(book: Book): void
+    + delete(bookId: string): void
+    + findById(bookId: string): Book
+}
+
+interface MemberRepository {
+    + save(member: Member): void
+    + delete(memberId: string): void
+    + findById(memberId: string): Member
+}
+
+class OverdueChecker {
+    + hasOverdueBooks(member: Member): boolean
+}
+
+class NotificationService {
+    + sendWelcomeEmail(member: Member): void
+    + sendBorrowConfirmation(member: Member, book: Book): void
+}
+
+LendingService --> BookManager
+LendingService --> MemberManager
+LendingService --> OverdueChecker
+LendingService --> NotificationService
+BookManager --> BookRepository
+MemberManager --> MemberRepository
+MemberManager --> NotificationService
+
+BookManager ..> Book
+MemberManager ..> Member
+BookRepository ..> Book
+MemberRepository ..> Member
+OverdueChecker ..> Member
+NotificationService ..> Member
+NotificationService ..> Book
+
+note right of BookManager
+  本の管理のみを
+  担当
+end note
+
+note right of MemberManager
+  会員管理のみを
+  担当
+end note
+
+note right of LendingService
+  貸出処理の
+  オーケストレーション
+  を担当
+end note
+
+note right of OverdueChecker
+  延滞チェックの
+  ロジックのみを担当
+end note
+
+note right of NotificationService
+  通知処理のみを
+  担当
+end note
+
+@enduml

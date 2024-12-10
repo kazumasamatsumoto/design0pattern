@@ -1,0 +1,25 @@
+@startuml BadLogger
+
+class Logger {
+    - logs: string[]
+    + log(message: string, level: string): void
+    - saveToFile(message: string): void
+    - sendToDatabase(message: string): void
+    - sendAlert(message: string): void
+    - sendEmail(message: string): void
+    - cleanOldLogs(): void
+}
+
+note right of Logger
+  単一のクラスが：
+  - ログの保持
+  - フォーマット処理
+  - ファイル保存
+  - DB保存
+  - アラート送信
+  - メール送信
+  - ログクリーニング
+  を全て担当している
+end note
+
+@enduml

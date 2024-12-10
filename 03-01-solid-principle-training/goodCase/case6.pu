@@ -1,0 +1,92 @@
+@startuml GoodShoppingCart
+interface CartItem {
+    + productId: string
+    + name: string
+    + price: number
+    + quantity: number
+}
+
+class Cart {
+    - items: CartItem[]
+    + userId: string
+    + addItem(item: CartItem): void
+    + removeItem(productId: string): void
+    + getItems(): CartItem[]
+    + clear(): void
+}
+
+class PriceCalculator {
+    - discountRules: Map<string, number>
+    + calculateTotal(items: CartItem[], discountCode?: string): number
+    - getDiscount(code?: string): number
+}
+
+class InventoryManager {
+    + updateStock(productId: string, quantityChange: number): void
+    + checkAvailability(productId: string, quantity: number): boolean
+}
+
+class CartRepository {
+    + save(cart: Cart): void
+    + findByUserId(userId: string): Cart
+}
+
+class PaymentProcessor {
+    + processPayment(amount: number, userId: string): boolean
+}
+
+class OrderService {
+    + createOrder(items: CartItem[], userId: string): void
+}
+
+class NotificationService {
+    + sendOrderConfirmation(userId: string): void
+}
+
+class ShoppingCartService {
+    - cart: Cart
+    - priceCalculator: PriceCalculator
+    - inventoryManager: InventoryManager
+    - cartRepository: CartRepository
+    - paymentProcessor: PaymentProcessor
+    - orderService: OrderService
+    - notificationService: NotificationService
+    + addItem(item: CartItem): void
+    + removeItem(productId: string): void
+    + checkout(discountCode?: string): boolean
+}
+
+Cart --> "0..*" CartItem
+ShoppingCartService --> Cart
+ShoppingCartService --> PriceCalculator
+ShoppingCartService --> InventoryManager
+ShoppingCartService --> CartRepository
+ShoppingCartService --> PaymentProcessor
+ShoppingCartService --> OrderService
+ShoppingCartService --> NotificationService
+
+note right of Cart
+  カートの基本操作
+  のみを担当
+end note
+
+note right of PriceCalculator
+  価格計算のみを
+  担当
+end note
+
+note right of InventoryManager
+  在庫管理のみを
+  担当
+end note
+
+note right of OrderService
+  注文作成のみを
+  担当
+end note
+
+note right of ShoppingCartService
+  各サービスの
+  調整役を担当
+end note
+@enduml

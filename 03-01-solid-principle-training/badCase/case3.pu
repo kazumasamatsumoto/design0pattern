@@ -1,0 +1,23 @@
+@startuml BadReport
+class Report {
+    - data: any[]
+    - format: string
+    - outputPath: string
+    + processData(): any[]
+    + formatData(): string
+    - convertToCSV(): string
+    - convertToPDF(): string
+    - convertToJSON(): string
+    + saveReport(): void
+    + emailReport(recipient: string): void
+}
+
+note right of Report
+  単一のクラスが：
+  - データ処理
+  - 複数形式への変換
+  - ファイル保存
+  - メール送信
+  を全て担当している
+end note
+@enduml

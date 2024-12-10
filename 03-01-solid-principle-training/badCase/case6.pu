@@ -1,0 +1,38 @@
+@startuml BadShoppingCart
+class ShoppingCart {
+    - items: CartItem[]
+    - userId: string
+    - discount: number
+    + addItem(item: CartItem): void
+    + removeItem(productId: string): void
+    + calculateTotal(): number
+    + applyDiscount(code: string): void
+    - updateInventory(productId: string, quantityChange: number): void
+    - saveToDatabase(): void
+    + checkout(): void
+    - processPayment(amount: number): void
+    - createOrder(): void
+    - sendConfirmationEmail(): void
+}
+
+interface CartItem {
+    + productId: string
+    + name: string
+    + price: number
+    + quantity: number
+}
+
+ShoppingCart --> "0..*" CartItem: contains
+
+note right of ShoppingCart
+  単一のクラスが：
+  - 商品管理
+  - 価格計算
+  - 在庫管理
+  - データベース操作
+  - 決済処理
+  - メール送信
+  - 注文作成
+  を全て担当している
+end note
+@enduml

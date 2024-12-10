@@ -1,0 +1,76 @@
+@startuml GoodEmployee
+class Employee {
+    + id: string
+    + name: string
+    + baseSalary: number
+    + position: string
+    + yearsOfService: number
+}
+
+class BonusCalculator {
+    + calculate(employee: Employee): number
+}
+
+class TaxCalculator {
+    + calculate(salary: number): number
+}
+
+class InsuranceCalculator {
+    + calculate(salary: number): number
+}
+
+class SalaryService {
+    - bonusCalculator: BonusCalculator
+    - taxCalculator: TaxCalculator
+    - insuranceCalculator: InsuranceCalculator
+    + calculateNetSalary(employee: Employee): number
+}
+
+class EmployeeRepository {
+    + save(employee: Employee): void
+}
+
+class PayslipGenerator {
+    - salaryService: SalaryService
+    + generate(employee: Employee): string
+}
+
+SalaryService --> BonusCalculator
+SalaryService --> TaxCalculator
+SalaryService --> InsuranceCalculator
+PayslipGenerator --> SalaryService
+BonusCalculator ..> Employee
+SalaryService ..> Employee
+EmployeeRepository ..> Employee
+PayslipGenerator ..> Employee
+
+note right of Employee
+  従業員データ
+  構造のみを担当
+end note
+
+note right of BonusCalculator
+  ボーナス計算
+  ロジックを担当
+end note
+
+note right of TaxCalculator
+  税金計算
+  ロジックを担当
+end note
+
+note right of InsuranceCalculator
+  保険料計算
+  ロジックを担当
+end note
+
+note right of SalaryService
+  給与計算の
+  統合を担当
+end note
+
+note right of PayslipGenerator
+  給与明細の
+  生成を担当
+end note
+@enduml

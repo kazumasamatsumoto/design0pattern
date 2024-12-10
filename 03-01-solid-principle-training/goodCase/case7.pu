@@ -1,0 +1,59 @@
+' 良い例
+interface Image {
+    + data: any
+    + metadata: any
+}
+
+class ImageResizer {
+    + resize(image: Image): Image
+}
+
+class ImageFilter {
+    + apply(image: Image): Image
+}
+
+class ImageCompressor {
+    + compress(image: Image): Image
+}
+
+class ImageStorage {
+    + saveLocally(image: Image): void
+}
+
+class CloudUploader {
+    + upload(image: Image): void
+}
+
+class ImageRepository {
+    + save(image: Image): void
+}
+
+class NotificationService {
+    + notify(userId: string): void
+}
+
+class ImageProcessingService {
+    - resizer: ImageResizer
+    - filter: ImageFilter
+    - compressor: ImageCompressor
+    - storage: ImageStorage
+    - uploader: CloudUploader
+    - repository: ImageRepository
+    - notifier: NotificationService
+    + process(image: Image, userId: string): void
+}
+
+ImageProcessingService --> ImageResizer
+ImageProcessingService --> ImageFilter
+ImageProcessingService --> ImageCompressor
+ImageProcessingService --> ImageStorage
+ImageProcessingService --> CloudUploader
+ImageProcessingService --> ImageRepository
+ImageProcessingService --> NotificationService
+
+note right of ImageProcessingService
+  各サービスの
+  調整役を担当
+end note
+
+@enduml

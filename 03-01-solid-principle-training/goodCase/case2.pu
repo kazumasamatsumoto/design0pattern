@@ -1,0 +1,69 @@
+@startuml GoodOrder
+class Order {
+    + items: string[]
+    + totalAmount: number
+    + customerEmail: string
+}
+
+class OrderValidator {
+    + validate(order: Order): boolean
+}
+
+class InventoryManager {
+    + updateInventory(items: string[]): void
+}
+
+class OrderRepository {
+    + save(order: Order): void
+}
+
+class OrderNotificationService {
+    + sendConfirmationEmail(email: string): void
+}
+
+class OrderProcessor {
+    - validator: OrderValidator
+    - inventory: InventoryManager
+    - repository: OrderRepository
+    - notification: OrderNotificationService
+    + processOrder(order: Order): void
+}
+
+OrderProcessor --> OrderValidator
+OrderProcessor --> InventoryManager
+OrderProcessor --> OrderRepository
+OrderProcessor --> OrderNotificationService
+OrderProcessor ..> Order : uses
+OrderValidator ..> Order : uses
+OrderRepository ..> Order : uses
+OrderNotificationService ..> Order : uses
+
+note right of Order
+  データ構造のみを
+  担当
+end note
+
+note right of OrderValidator
+  バリデーション
+  ロジックを担当
+end note
+
+note right of InventoryManager
+  在庫管理を担当
+end note
+
+note right of OrderRepository
+  データベース
+  操作を担当
+end note
+
+note right of OrderNotificationService
+  メール通知を
+  担当
+end note
+
+note right of OrderProcessor
+  処理の
+  調整役を担当
+end note
+@enduml

@@ -1,0 +1,80 @@
+@startuml GoodReport
+class ReportData {
+    + rawData: any[]
+}
+
+class DataProcessor {
+    + process(data: ReportData): any[]
+}
+
+interface IFormatter {
+    + format(data: any[]): string
+}
+
+class CSVFormatter {
+    + format(data: any[]): string
+}
+
+class PDFFormatter {
+    + format(data: any[]): string
+}
+
+class JSONFormatter {
+    + format(data: any[]): string
+}
+
+class ReportStorage {
+    + save(content: string, path: string): void
+}
+
+class ReportDistributor {
+    + email(content: string, recipient: string): void
+}
+
+class ReportGenerator {
+    - processor: DataProcessor
+    - formatter: IFormatter
+    - storage: ReportStorage
+    - distributor: ReportDistributor
+    + generateReport(data: ReportData, outputPath: string, recipient?: string): void
+}
+
+ReportGenerator --> DataProcessor
+ReportGenerator --> IFormatter
+ReportGenerator --> ReportStorage
+ReportGenerator --> ReportDistributor
+CSVFormatter ..|> IFormatter
+PDFFormatter ..|> IFormatter
+JSONFormatter ..|> IFormatter
+DataProcessor ..> ReportData : uses
+
+note right of ReportData
+  データ構造のみを
+  担当
+end note
+
+note right of DataProcessor
+  データ処理を
+  担当
+end note
+
+note right of IFormatter
+  データ形式変換の
+  インターフェース
+end note
+
+note right of ReportStorage
+  ファイル保存を
+  担当
+end note
+
+note right of ReportDistributor
+  メール送信を
+  担当
+end note
+
+note right of ReportGenerator
+  全体の処理フローを
+  調整
+end note
+@enduml

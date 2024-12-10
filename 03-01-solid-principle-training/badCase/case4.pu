@@ -1,0 +1,27 @@
+@startuml BadEmployee
+class Employee {
+    + id: string
+    + name: string
+    + baseSalary: number
+    + position: string
+    + yearsOfService: number
+    + calculateSalary(): number
+    - calculateBonus(): number
+    - calculateTax(): number
+    - calculateInsurance(): number
+    + saveToDatabase(): void
+    + generatePayslip(): string
+}
+
+note right of Employee
+  単一のクラスが：
+  - 従業員情報管理
+  - 給与計算
+  - ボーナス計算
+  - 税金計算
+  - 保険料計算
+  - データベース操作
+  - 給与明細生成
+  を全て担当している
+end note
+@enduml

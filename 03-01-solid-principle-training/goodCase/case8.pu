@@ -1,0 +1,88 @@
+
+@startuml GoodLogger
+
+interface LogEntry {
+    + message: string
+    + level: string
+    + timestamp: Date
+}
+
+class LogFormatter {
+    + format(entry: LogEntry): string
+}
+
+class FileLogStorage {
+    + save(formattedMessage: string): void
+}
+
+class DatabaseLogStorage {
+    + save(formattedMessage: string): void
+}
+
+class AlertService {
+    + sendAlert(message: string): void
+}
+
+class EmailService {
+    + sendEmail(message: string): void
+}
+
+class LogCleaner {
+    + clean(): void
+}
+
+class LoggingService {
+    - formatter: LogFormatter
+    - fileStorage: FileLogStorage
+    - dbStorage: DatabaseLogStorage
+    - alertService: AlertService
+    - emailService: EmailService
+    - cleaner: LogCleaner
+    + log(message: string, level: string): void
+}
+
+LoggingService --> LogFormatter
+LoggingService --> FileLogStorage
+LoggingService --> DatabaseLogStorage
+LoggingService --> AlertService
+LoggingService --> EmailService
+LoggingService --> LogCleaner
+LogFormatter ..> LogEntry
+LoggingService ..> LogEntry
+
+note right of LogFormatter
+  ログのフォーマット
+  処理のみを担当
+end note
+
+note right of FileLogStorage
+  ファイルへの
+  保存のみを担当
+end note
+
+note right of DatabaseLogStorage
+  データベースへの
+  保存のみを担当
+end note
+
+note right of AlertService
+  アラート送信
+  のみを担当
+end note
+
+note right of EmailService
+  メール送信
+  のみを担当
+end note
+
+note right of LogCleaner
+  古いログの
+  クリーニングのみを担当
+end note
+
+note right of LoggingService
+  各サービスの
+  調整役を担当
+end note
+
+@enduml

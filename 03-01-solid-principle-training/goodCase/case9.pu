@@ -1,0 +1,111 @@
+@startuml GoodFileConverter
+
+interface FileContent {
+    + data: string
+    + format: string
+}
+
+class FileReader {
+    + read(filePath: string): FileContent
+}
+
+class FormatValidator {
+    - supportedFormats: Set<string>
+    + validate(format: string): boolean
+}
+
+interface IConverter {
+    + convert(content: FileContent, targetFormat: string): FileContent
+}
+
+class PDFConverter {
+    + convert(content: FileContent, targetFormat: string): FileContent
+}
+
+class DOCConverter {
+    + convert(content: FileContent, targetFormat: string): FileContent
+}
+
+class FileWriter {
+    + write(content: FileContent, path: string): void
+}
+
+class MetadataManager {
+    + updateMetadata(filePath: string, format: string): void
+}
+
+class ConversionLogger {
+    + log(sourceFormat: string, targetFormat: string): void
+}
+
+class NotificationService {
+    + notify(userId: string, message: string): void
+}
+
+class FileConversionService {
+    - reader: FileReader
+    - validator: FormatValidator
+    - converters: Map<string, IConverter>
+    - writer: FileWriter
+    - metadata: MetadataManager
+    - logger: ConversionLogger
+    - notifier: NotificationService
+    + convertFile(sourceFile: string, targetFormat: string, userId: string): void
+}
+
+PDFConverter ..|> IConverter
+DOCConverter ..|> IConverter
+
+FileConversionService --> FileReader
+FileConversionService --> FormatValidator
+FileConversionService --> IConverter
+FileConversionService --> FileWriter
+FileConversionService --> MetadataManager
+FileConversionService --> ConversionLogger
+FileConversionService --> NotificationService
+
+FileReader ..> FileContent
+IConverter ..> FileContent
+FileWriter ..> FileContent
+
+note right of FileReader
+  ファイル読み込み
+  のみを担当
+end note
+
+note right of FormatValidator
+  フォーマット検証
+  のみを担当
+end note
+
+note right of IConverter
+  ファイル変換の
+  インターフェース
+end note
+
+note right of FileWriter
+  ファイル保存
+  のみを担当
+end note
+
+note right of MetadataManager
+  メタデータ管理
+  のみを担当
+end note
+
+note right of ConversionLogger
+  ログ記録
+  のみを担当
+end note
+
+note right of NotificationService
+  通知処理
+  のみを担当
+end note
+
+note right of FileConversionService
+  各サービスの
+  調整役を担当
+end note
+
+@enduml

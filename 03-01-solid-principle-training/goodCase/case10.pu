@@ -1,0 +1,89 @@
+@startuml GoodScheduleManager
+
+interface Event {
+   + id: string
+   + title: string
+   + startTime: Date
+   + endTime: Date
+   + participants: string[]
+}
+
+class EventValidator {
+   + validateTimeSlot(event: Event, existingEvents: Event[]): boolean
+   - hasConflict(event: Event, existingEvents: Event[]): boolean
+}
+
+class EventRepository {
+   + save(event: Event): void
+   + find(date: Date): Event[]
+   + update(event: Event): void
+}
+
+class ParticipantNotifier {
+   + notify(event: Event): void
+}
+
+class ReminderService {
+   + setReminder(event: Event): void
+}
+
+class CalendarSyncService {
+   + sync(event: Event): void
+}
+
+class EventService {
+   - validator: EventValidator
+   - repository: EventRepository
+   - notifier: ParticipantNotifier
+   - reminder: ReminderService
+   - calendarSync: CalendarSyncService
+   + addEvent(event: Event): void
+   + findEvents(date: Date): Event[]
+   + updateEvent(event: Event): void
+}
+
+EventService --> EventValidator
+EventService --> EventRepository
+EventService --> ParticipantNotifier
+EventService --> ReminderService
+EventService --> CalendarSyncService
+
+EventValidator ..> Event
+EventRepository ..> Event
+ParticipantNotifier ..> Event
+ReminderService ..> Event
+CalendarSyncService ..> Event
+EventService ..> Event
+
+note right of EventValidator
+ イベントの
+ バリデーション
+ のみを担当
+end note
+
+note right of EventRepository
+ データの永続化
+ のみを担当
+end note
+
+note right of ParticipantNotifier
+ 参加者への通知
+ のみを担当
+end note
+
+note right of ReminderService
+ リマインダー管理
+ のみを担当
+end note
+
+note right of CalendarSyncService
+ カレンダー同期
+ のみを担当
+end note
+
+note right of EventService
+ 各サービスの
+ 調整役を担当
+end note
+
+@enduml

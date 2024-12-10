@@ -1,0 +1,41 @@
+@startuml BadLibrary
+class Library {
+    - books: Book[]
+    - members: Member[]
+    + addBook(book: Book): void
+    + removeBook(bookId: string): void
+    + addMember(member: Member): void
+    + removeMember(memberId: string): void
+    + lendBook(bookId: string, memberId: string): void
+    - updateDatabase(table: string): void
+    - sendWelcomeEmail(member: Member): void
+    - sendBorrowConfirmation(member: Member, book: Book): void
+    - checkOverdueBooks(member: Member): boolean
+}
+
+interface Book {
+    + id: string
+    + title: string
+    + status: string
+}
+
+interface Member {
+    + id: string
+    + name: string
+    + email: string
+}
+
+Library --> "0..*" Book: contains
+Library --> "0..*" Member: contains
+
+note right of Library
+  単一のクラスが：
+  - 本の管理
+  - 会員管理
+  - 貸出管理
+  - データベース操作
+  - メール送信
+  - 延滞チェック
+  を全て担当している
+end note
+@enduml
